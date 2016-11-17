@@ -59,6 +59,10 @@ const modifiers = [
 
 test('multiple modifier', t => t.true(isAccelerator('CommandOrControl+Shift+Z')));
 test('multiple keys', t => t.false(isAccelerator('A+Z')));
+test('typos', t => t.false(isAccelerator('CommandOrContol+A')));
+test('modifiers without keys', t => t.false(isAccelerator('CmdOrCtrl')));
+test('multiple modifiers without keys', t => t.false(isAccelerator('CmdOrCtrl+Ctrl')));
+test('empty string', t => t.false(isAccelerator('')));
 
 // tests to check each modifiers
 modifiers.forEach(mod => test(
@@ -75,7 +79,6 @@ keys.forEach(key => test(
         isAccelerator(key)
     )
 ));
-
 
 // tests to check every combination of modifier and key
 modifiers.forEach(mod =>
