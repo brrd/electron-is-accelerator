@@ -5,8 +5,17 @@ const keyCodes = /^([0-9A-Z)!@#$%^&*(:+<_>?~{|}";=,\-./`[\\\]']|F1*[1-9]|F10|F2[
 
 module.exports = function (str) {
 	let parts = str.split("+");
+	let keyFound = false;
     return parts.every((val, index) => {
-        return (index < parts.length - 1 && modifiers.test(val)) ||
-        	(index === parts.length - 1 && keyCodes.test(val));
+		const isKey = keyCodes.test(val);
+		const isModifier = modifiers.test(val);
+		if (isKey) {
+			// Key must be unique
+			if (keyFound) return false;
+			keyFound = true;
+		}
+		// Key is required
+		if (index === parts.length - 1 && !keyFound) return false;
+        return isKey || isModifier;
     });
 };

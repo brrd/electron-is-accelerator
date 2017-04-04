@@ -81,11 +81,16 @@ keys.forEach(key => test(
 ));
 
 // tests to check every combination of modifier and key
+const testSequence = (sequence) => test(
+    `${sequence} sequence`,
+    t => t.true(
+        isAccelerator(`${sequence}`)
+    )
+);
+
 modifiers.forEach(mod =>
-    keys.forEach(key => test(
-        `${mod}+${key} sequence`,
-        t => t.true(
-            isAccelerator(`${mod}+${key}`)
-        )
-    ))
+    keys.forEach(key => {
+        testSequence(`${mod}+${key}`);
+        testSequence(`${key}+${mod}`);
+    })
 );
