@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "Check if a string is a valid Electron accelerator",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "jshint *.js && ava"
   },
